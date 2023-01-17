@@ -30,17 +30,18 @@ public class JpaMain {
             em.clear();
 
 
-            String query = "select m.username, 'HELLO', TRUE, false from Member m " +
-                    "where m.memberType = :userType";
-            List<Object[]> resultList = em.createQuery(query)
-                    .setParameter("userType", MemberType.ADMIN)
+            String query =
+                    "select" +
+                    "   case when m.age <= 10 then '학생요금' " +
+                    "        when m.age >= 60 then '학생요금' " +
+                    "        else '일반요금' " +
+                    "end " +
+                    " from Member m";
+            List<String> resultList = em.createQuery(query, String.class)
                     .getResultList();
 
-            for (Object[] objects : resultList) {
-                System.out.println("objects = " + objects[0]);
-                System.out.println("objects = " + objects[1]);
-                System.out.println("objects = " + objects[2]);
-                System.out.println("objects = " + objects[3]);
+            for (String s : resultList) {
+                System.out.println("s = " + s);
             }
 
             tx.commit();
