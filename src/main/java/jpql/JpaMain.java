@@ -20,9 +20,11 @@ public class JpaMain {
             member.setAge(10);
             em.persist(member);
 
-            TypedQuery<Member> query1 = em.createQuery("select m from Member m where m.id = 10", Member.class);
-            Member singleResult = query1.getSingleResult(); // 단일 결과 보장할 경우에만 쓸 것
-            System.out.println("singleResult = " + singleResult);
+            Member result = em.createQuery("select m from Member m where m.username = :username", Member.class)
+                    .setParameter("username", "member1") // 이름 기준 바인딩 추천(포지션은 비추천)
+                    .getSingleResult();
+
+            System.out.println("result = " + result.getUsername());
 
 
             tx.commit();
