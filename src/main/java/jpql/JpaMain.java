@@ -20,12 +20,11 @@ public class JpaMain {
             member.setAge(10);
             em.persist(member);
 
-            Member result = em.createQuery("select m from Member m where m.username = :username", Member.class)
-                    .setParameter("username", "member1") // 이름 기준 바인딩 추천(포지션은 비추천)
-                    .getSingleResult();
+            em.flush();
+            em.clear();
 
-            System.out.println("result = " + result.getUsername());
-
+           em.createQuery("select o.address from Order o", Address.class)
+                    .getResultList();
 
             tx.commit();
 
