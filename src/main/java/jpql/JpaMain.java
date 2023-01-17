@@ -20,9 +20,9 @@ public class JpaMain {
             member.setAge(10);
             em.persist(member);
 
-            TypedQuery<Member> query1 = em.createQuery("select m from Member m", Member.class);
-            TypedQuery<String> query2 = em.createQuery("select m.username from Member m", String.class);
-            Query query3 = em.createQuery("select m.username, m.age from Member m"); //반환 타입이 명확하지 않을 때
+            TypedQuery<Member> query1 = em.createQuery("select m from Member m where m.id = 10", Member.class);
+            Member singleResult = query1.getSingleResult(); // 단일 결과 보장할 경우에만 쓸 것
+            System.out.println("singleResult = " + singleResult);
 
 
             tx.commit();
