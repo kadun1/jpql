@@ -16,7 +16,7 @@ public class Member {
 
     public void changeTeam(Team team) {
         this.team = team;
-        team.getMember().add(this);
+        team.getMembers().add(this);
     }
 
     @Enumerated(EnumType.STRING)
