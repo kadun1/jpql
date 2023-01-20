@@ -52,6 +52,7 @@ public class JpaMain {
                     System.out.println("-> member = " + member);
                 }
             }
+
             tx.commit();
 
         } catch (Exception e) {
