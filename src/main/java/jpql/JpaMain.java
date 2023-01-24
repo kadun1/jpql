@@ -42,12 +42,14 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-            String query = "select m from Member m where m = :member"; //엔티티를 직접 사용하면 PK를 사용한다.
-            Member findMember = em.createQuery(query, Member.class)
-                    .setParameter("member", member1)
-                    .getSingleResult();
+            String query = "select m from Member m where m.team = :team"; //엔티티를 직접 사용하면 PK를 사용한다.
+            List<Member> members = em.createQuery(query, Member.class)
+                    .setParameter("team", teamA)
+                    .getResultList();
 
-            System.out.println("findMember = " + findMember);
+            for (Member member : members) {
+                System.out.println("member = " + member);
+            }
 
             tx.commit();
         } catch (Exception e) {
