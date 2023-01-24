@@ -42,17 +42,12 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-            String query = "select t From Team t join fetch t.members";
-            List<Team> result = em.createQuery(query, Team.class)
-                    .getResultList();
+            String query = "select m from Member m where m = :member"; //엔티티를 직접 사용하면 PK를 사용한다.
+            Member findMember = em.createQuery(query, Member.class)
+                    .setParameter("member", member1)
+                    .getSingleResult();
 
-            for (Team team : result) {
-                System.out.println("team = " + team.getName() + " | members = " + team.getMembers().size());
-
-                for (Member member : team.getMembers()) {
-                    System.out.println("-> member = " + member);
-                }
-            }
+            System.out.println("findMember = " + findMember);
 
             tx.commit();
         } catch (Exception e) {
