@@ -46,6 +46,8 @@ public class JpaMain {
             int resultCount = em.createQuery("update Member m set m.age = 20")
                     .executeUpdate();
 
+            System.out.println("resultCount = " + resultCount);
+
             em.clear(); //벌크연산 수행 후에는 영속성 컨텍스트 초기화 해야한다. (또는 벌크 연산을 먼저 수행)
 
             Member findMember = em.find(Member.class, member1.getId());
